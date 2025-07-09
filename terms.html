@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms</title>
+
+</head>
+<body>
+    <canvas id="c"></canvas>
+
+    <h1>
+        <span>Terms</span><span> and</span><span> Conditions</span> 
+    </h1>
+
+    <button><a href=BeatStore.html>Go Back</a></button>
+
+
+    <ol start="1">
+        <h2>
+        Terms: 
+        </h2>
+        <br>
+           
+        <li>ALL beats used for Non-Profit as well as lease-bought must be credited to (prod. deadat18_).<br>
+        </li>
+        <br>
+            
+        <br><li>Beats that are used without permission and consent will result in copyright strike on song. 
+        </li>
+        <br>
+            
+        <br><li>Lease agreement will be served upon purchase of said beat/lease. 
+        </li>
+        <br>
+            
+        <br><li>ALL loops must be credited to (prod. deadat18_).
+        </li>
+        <br>
+            
+        <br><li>ANY usage of loops/beats without credit will result in violation copyright, along with takedown of said song/beat.
+        </li>
+        <br>
+            
+        <br><li>If you would like to dispute a said violation, please contact <a href="mailto:deadt18beats@gmail.com">deadt18beats@gmail.com.</a>
+        </li>
+        <br>
+            
+        <br><li>ANY inquiries about beats/loops must be made through <a href="mailto:deadt18beats@gmail.com">deadt18beats@gmail.com.</a>
+        </li>
+
+    </ol>
+
+</body>
+
+<style>
+@font-face {
+    font-family: 'Ghastly Panic';
+    src: url('C:/Users/James/Downloads/Ghastly Panic.woff2') format('woff2'),
+         url('C:/Users/James/Downloads/Ghastly Panic.woff') format('woff');
+
+    font-family: 'ONEDAY';
+    src: url('ONEDAY.ttf')
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+button {
+  background-color: #15c762;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  float: none;
+  display: inline-block;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position:fixed;
+  top: 20px;
+  right:20px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 8px 8px 0 rgba(18, 138, 68, 0.24), 0 17px 50px 0 rgba(255, 255, 255, 0.19);
+}
+
+button a{
+    color: white;
+    text-decoration: none;
+    -webkit-background-clip: text;
+    background-clip: text;
+
+}
+
+
+h1{
+    font-family:'Ghastly Panic';
+    background: linear-gradient(0deg, rgb(0, 255, 8) 0%, rgb(10, 7, 2) 100%);    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 100px;
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s;
+}
+
+h1 span {
+    transition: margin-right 0.2s;
+}
+
+h1:hover span:nth-child(1) {
+    margin-right: 20px;
+}
+
+h1:hover span:nth-child(2) {
+    margin-right: 20px;
+}
+
+ol{
+
+    font-family: 'ONEDAY';
+    background: radial-gradient(#13be7a, #f4f5ff);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 20px;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+
+}
+
+li a{
+    text-decoration: none;
+    background: radial-gradient(#13be7a, #f4f5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+</style>
+
+<script>
+var c = document.getElementById("c");
+var ctx = c.getContext("2d");
+
+// Making the canvas full screen
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+
+// Characters for the matrix effect
+var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|]}";
+matrix = matrix.split("");
+
+var font_size = 10;
+var columns = c.width / font_size;
+var drops = [];
+
+// Initializing the drops array
+for (var x = 0; x < columns; x++)
+    drops[x] = 1;
+
+// Drawing the characters
+function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = "Green";
+    ctx.font = font_size + "px arial";
+
+    for (var i = 0; i < drops.length; i++) {
+        var text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+        if (drops[i] * font_size > c.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 35);
+
+</script>
+</html>

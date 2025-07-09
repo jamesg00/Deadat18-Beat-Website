@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEADAT18.com</title>
+</head>
+<body class="custom-cursor">
+    <canvas id="c"></canvas>
+    <h1 class="radial-text-gradient">
+        <a href="https://www.youtube.com/@deadat1897">DEAD<span>AT</span><span>18</span></a>
+    </h1>
+    <div class="links">
+        <h2><a href="mailto:deadt18beats@gmail.com">Contact</a></h2>
+        <h3><a href="terms.html">Terms</a></h3>
+        <h4><a href="https://linktr.ee/deadat18">Links</a></h4>
+    </div>
+    <div id="image-container">
+        <div id="draggable-container">
+            <img id="draggable-image" src="mp3-icon-36711.png" alt="mp3file" width="80" height="80" draggable="true">
+            <h5>Beats</h5>
+        </div>
+    </div>
+
+    <div id="movie-container">
+        <div id="draggable-movie-container">
+            <a href="new videoo.mp4" class="secret-vid-link">
+                <div class="secret-vid-content">
+                    <img id="draggable-movie-image" src="player-icon-26.png" alt="moviefile" width="80" height="80" draggable="true">
+                    <h5>Secret Vid</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+
+    
+
+
+    <div id="ig-image">
+        <a href="https://www.instagram.com/dead.at.18/">
+        <img id="ig" src="igIcon.png" alt="instagram" width="50" height="50">
+        </a>
+    </div>
+
+    <div id="sc-image">
+        <a href="https://soundcloud.com/deadat18">
+        <img id="sc" src="scIcon.png" alt="soundcloud" width="50" height="50">
+        </a>
+    </div>
+
+    <div id="notepad-container">
+        <div id="draggable-notepad-container">
+            <img id="notepad-image" src="notepad-icon-7.png" alt="notepad" width="80" height="80" draggable="true">
+            <h6>Notes</h6>
+        </div>
+    </div>
+    
+    <div id="custom-audio-player" class="audio-control hidden">
+        <audio id="audio" src="bubbleDeadat18 152.mp3"></audio>
+        <audio id="audio1" src="beachRave.wav"></audio>
+        <audio id="audio2" src="be Happy!.mp3"></audio>
+        <audio id="audio3" src="16 Seconds Ruff MIX (1).wav"></audio>
+        <audio id="audio4" src="you are my sweetest love bunny 153 deadat18.mp3"></audio>
+        <div class="controls">
+            <button id="play-pause" class="play">Play</button>
+            <button id="next-button" class="next">Next</button>
+
+            <div id="seek-bar">
+                <div id="fill"></div>
+            </div>
+            <span id="time">0:00 / 0:00</span>
+        </div>
+    </div>
+
+    <div id="notepad" class="notepad hidden">
+        <div class="notepad-header">
+            <span id="close-btn" class="close-btn" onclick="closeNotepad()">×</span>
+            <h8>Notepad</h8>
+        </div>
+        <textarea id="notepad-content"></textarea>
+        
+    </div>
+
+
+
+
+
+
+</body>
+
+
+<style>
+@font-face {
+    font-family: 'Ghastly Panic';
+    src: url('C:/Users/James/Downloads/Ghastly Panic.woff2') format('woff2'),
+         url('C:/Users/James/Downloads/Ghastly Panic.woff') format('woff');
+}
+
+.custom-cursor {
+    cursor: url("screamin_green_pixel (1).png"), auto;
+    /* Alternative using Base64 encoded image */
+    /* cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgMBAs4MW8UAAAAASUVORK5CYII=), auto; */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Ghastly Panic';
+    font-weight: 800;
+    letter-spacing: 5px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 2;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    transition: transform 0.3s;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.secret-vid-link {
+    text-decoration: none;
+    color: white; /* Set the text color */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.secret-vid-link h5 {
+    margin: 0;
+}
+
+
+#notepad {
+    display:none;
+    position: fixed;
+    top: 100px;
+    left: 75%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 400px;
+    background: black;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+   
+    flex-direction: column;
+}
+
+.notepad-header {
+    display:none;
+    background:#0000;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    cursor: pointer;
+    color:#ffffff;
+}
+
+#notepad-content {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: black;
+    color: #15c762;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 18px;
+    width:90%;
+    height:80%;
+}
+
+
+
+
+h1 a, h2 a {
+    text-decoration: none;
+    background: linear-gradient(0deg, rgb(0, 255, 8) 0%, rgb(10, 7, 2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+h1 span {
+    transition: margin-left 0.2s;
+}
+
+h1:hover span:nth-child(1) {
+    margin-left: 20px;
+}
+
+h1:hover span:nth-child(2) {
+    margin-left: 20px;
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+    bottom: 10%;
+    z-index: 3;
+}
+
+#image-container {
+    position: absolute;
+    top: 80px;
+    left: 200px;
+}
+
+#movie-container {
+    position: absolute;
+    top: 80px;
+    right: 700px;
+}
+
+#draggable-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+}
+
+#draggable-movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+}
+
+#draggable-notepad-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+}
+.button {
+  background-color: #15c762;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  float: none;
+  display: inline-block;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position:fixed;
+  top: 20px;
+  right:20px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 8px 8px 0 rgba(18, 138, 68, 0.24), 0 17px 50px 0 rgba(255, 255, 255, 0.19);
+}
+
+.Newbutton{
+    background-color: #92efd3;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  float: none;
+  display: inline-block;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position:fixed;
+  top: 350px;
+  right:5px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 8px 8px 0 rgba(18, 138, 68, 0.24), 0 17px 50px 0 rgba(255, 255, 255, 0.19);
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+h2, h3, h4 {
+    font-family: 'Ghastly Panic';
+    color: #ffffff;
+    letter-spacing: 5px;
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+h5, h6 {
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+h2 a, h3 a, h4 a {
+    text-decoration: none;
+    background: rgb(255, 255, 255);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.audio-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0); /* Transparent background */
+    color: white;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+h8 {
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+.audio-control.hidden {
+    transform: translateY(100%);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+#seek-bar {
+    flex: 1;
+    height: 10px;
+    background-color: #ddd;
+    margin: 0 10px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+#seek-bar #fill {
+    height: 100%;
+    background-color: #15c762;
+    border-radius: 5px;
+    width: 0%;
+}
+
+#time {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+.play,
+.pause,
+.next {
+    background-color: #15c762;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+#notepad-container {
+    position: absolute;
+    top: 80px;
+    left: 700px;
+}
+
+#ig-image{
+    position: fixed;
+    top: 5%;
+    left: 95%;
+    z-index: 1000;
+}
+
+#sc-image{
+    position: fixed;
+    top: 10%;
+    left: 95%;
+    z-index: 1000;
+}
+
+
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    80% {
+        transform: translateY(-20px);
+    }
+}
+
+.bounce {
+    animation: bounce 1.5s infinite;
+}
+
+</style>
+<script>
+var c = document.getElementById("c");
+var ctx = c.getContext("2d");
+
+// Making the canvas full screen
+c.height = window.innerHeight;
+c.width = window.innerWidth;
+
+// Characters for the matrix effect
+var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|]}";
+matrix = matrix.split("");
+
+var font_size = 10;
+var columns = c.width / font_size;
+var drops = [];
+
+// Initializing the drops array
+for (var x = 0; x < columns; x++)
+    drops[x] = 1;
+
+// Drawing the characters
+function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = "Green";
+    ctx.font = font_size + "px arial";
+
+    for (var i = 0; i < drops.length; i++) {
+        var text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * font_size, drops[i] * font_size);
+
+        if (drops[i] * font_size > c.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 35);
+
+var h2 = document.querySelector('h2');
+var h3 = document.querySelector('h3');
+var h4 = document.querySelector('h4');
+
+h2.addEventListener('mouseenter', function() {
+    console.log('Mouse entered h2');
+    this.style.animation = 'bounce 1.5s infinite';
+});
+
+h2.addEventListener('mouseleave', function() {
+    console.log('Mouse left h2');
+    this.style.animation = '';
+});
+
+h3.addEventListener('mouseenter', function() {
+    console.log('Mouse entered h3');
+    this.style.animation = 'bounce 1.5s infinite';
+});
+
+h3.addEventListener('mouseleave', function() {
+    console.log('Mouse left h3');
+    this.style.animation = '';
+});
+
+h4.addEventListener('mouseenter', function() {
+    console.log('Mouse entered h4');
+    this.style.animation = 'bounce 1.5s infinite';
+});
+
+h4.addEventListener('mouseleave', function() {
+    console.log('Mouse left h4');
+    this.style.animation = '';
+});
+
+var container = document.getElementById('draggable-container');
+var shiftX, shiftY;
+
+var notecontainer = document.getElementById('draggable-notepad-container');
+var notepad = document.getElementById('notepad');
+
+var movie = document.getElementById('draggable-movie-container');
+
+movie.addEventListener('dragstart', function(event) {
+    shiftX = event.clientX - movie.getBoundingClientRect().left;
+    shiftY = event.clientY - movie.getBoundingClientRect().top;
+    event.dataTransfer.setData('text/plain', 'draggable-movie-container');
+});
+
+movie.addEventListener('dragend', function(event) {
+    // Calculate the new position based on the container's position
+    var containerRect = movie.parentNode.getBoundingClientRect();
+    
+    // Update the movie's position based on the final drag location
+    movie.style.left = (event.clientX - containerRect.left - shiftX) + 'px';
+    movie.style.top = (event.clientY - containerRect.top - shiftY) + 'px';
+});
+
+notepad.addEventListener('dragstart', function(event) {
+    // Calculate the initial shift from the click point to the top-left corner of the notepad
+    shiftX = event.clientX - notepad.getBoundingClientRect().left;
+    shiftY = event.clientY - notepad.getBoundingClientRect().top;
+    
+    // Set data to be transferred during drag
+    event.dataTransfer.setData('text/plain', 'notepad');
+});
+
+notepad.addEventListener('dragend', function(event) {
+    // Calculate the new position based on the container's position
+    var containerRect = notepad.parentNode.getBoundingClientRect();
+    
+    // Update the notepad's position based on the final drag location
+    notepad.style.left = (event.clientX - containerRect.left - shiftX) + 'px';
+    notepad.style.top = (event.clientY - containerRect.top - shiftY) + 'px';
+});
+
+notecontainer.addEventListener('dragstart', function(event) {
+    shiftX = event.clientX - notecontainer.getBoundingClientRect().left;
+    shiftY = event.clientY - notecontainer.getBoundingClientRect().top;
+    event.dataTransfer.setData('text/plain', 'draggable-notepad-container');
+});
+
+notecontainer.addEventListener('dragend', function(event) {
+    var noteContainer = document.getElementById('notepad-container');
+    var containerRect = noteContainer.getBoundingClientRect();
+    
+    notecontainer.style.left = (event.clientX - containerRect.left - shiftX) + 'px';
+    notecontainer.style.top = (event.clientY - containerRect.top - shiftY) + 'px';
+});
+
+container.addEventListener('dragstart', function(event) {
+    shiftX = event.clientX - container.getBoundingClientRect().left;
+    shiftY = event.clientY - container.getBoundingClientRect().top;
+    event.dataTransfer.setData('text/plain', 'draggable-container');
+});
+
+container.addEventListener('dragend', function(event) {
+    var imageContainer = document.getElementById('image-container');
+    var containerRect = imageContainer.getBoundingClientRect();
+    
+    container.style.left = (event.clientX - containerRect.left - shiftX) + 'px';
+    container.style.top = (event.clientY - containerRect.top - shiftY) + 'px';
+});
+
+// Audio player logic
+var image = document.getElementById("draggable-image");
+var audioPlayer = document.getElementById("custom-audio-player");
+var fill = document.getElementById("fill");
+var timeLabel = document.getElementById("time");
+var audio = document.getElementById("audio");
+var audio1 = document.getElementById("audio1");
+var audio2 = document.getElementById("audio2");
+var audio3 = document.getElementById("audio3");
+var audio4 = document.getElementById("audio4");
+
+// Initial setup
+var currentAudio = audio1; // Start with the first audio element
+var currentIndex = 1; // Track the current index of the audio element
+
+var playPauseButton = document.getElementById("play-pause");
+var nextButton = document.getElementById("next-button");
+
+// Function to pause all audios except the current one
+function pauseAllExcept(current) {
+    [audio, audio1, audio2, audio3, audio4].forEach(function(audioElement) {
+        if (audioElement !== current) {
+            audioElement.pause();
+        }
+    });
+}
+
+document.getElementById('notepad-image').addEventListener('click', function() {
+    // Toggle the hidden class to show or hide the notepad
+    var notepad = document.getElementById('notepad');
+    notepad.style.display = 'block';
+});
+
+
+function closeNotepad() {
+    var notepad = document.getElementById('notepad');
+    notepad.style.display = 'none';
+}
+
+// Add event listener to the close button
+var closeButton = document.getElementById('close-btn');
+closeButton.addEventListener('click', function() {
+    closeNotepad();
+});
+
+function attachTimeUpdate() {
+    currentAudio.addEventListener("timeupdate", function() {
+        var progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+        fill.style.width = progress + "%";
+        updateTimeLabel();
+    });
+}
+
+nextButton.addEventListener("click", function() {
+    // Pause the current audio
+    currentAudio.pause();
+
+    // Increment index to move to the next audio element
+    currentIndex++;
+
+    // Depending on currentIndex, switch to the next audio element
+    switch (currentIndex) {
+        case 1:
+            currentAudio = audio;
+            break;
+        case 2:
+            currentAudio = audio1;
+            break;
+        case 3:
+            currentAudio = audio2;
+            break;
+        case 4:
+            currentAudio = audio3;
+            break;
+        case 5:
+            currentAudio = audio4;
+            break;
+        default:
+            currentIndex = 1;
+            currentAudio = audio;
+            break;
+    }
+
+    // Remove previous timeupdate listener
+    currentAudio.removeEventListener("timeupdate", function() {});
+
+    // Add new timeupdate listener
+    attachTimeUpdate();
+
+    // Play the new current audio
+    currentAudio.play();
+    updatePlayPauseButton();
+});
+
+image.addEventListener("click", function() {
+    audioPlayer.classList.remove("hidden");
+    currentAudio.play();
+    attachTimeUpdate(); // Attach the timeupdate listener for the first play
+    updatePlayPauseButton();
+});
+
+playPauseButton.addEventListener("click", function() {
+    if (currentAudio.paused) {
+        currentAudio.play();
+    } else {
+        currentAudio.pause();
+    }
+    updatePlayPauseButton();
+});
+
+function updatePlayPauseButton() {
+    if (currentAudio.paused) {
+        playPauseButton.textContent = "Play";
+        playPauseButton.classList.remove("pause");
+        playPauseButton.classList.add("play");
+    } else {
+        playPauseButton.textContent = "Pause";
+        playPauseButton.classList.remove("play");
+        playPauseButton.classList.add("pause");
+    }
+}
+
+function updateTimeLabel() {
+    var currentMinutes = Math.floor(currentAudio.currentTime / 60);
+    var currentSeconds = Math.floor(currentAudio.currentTime % 60);
+    var durationMinutes = Math.floor(currentAudio.duration / 60);
+    var durationSeconds = Math.floor(currentAudio.duration % 60);
+
+    if (currentSeconds < 10) currentSeconds = "0" + currentSeconds;
+    if (durationSeconds < 10) durationSeconds = "0" + durationSeconds;
+
+    timeLabel.textContent = currentMinutes + ":" + currentSeconds + " / " + durationMinutes + ":" + durationSeconds;
+}
+
+var seekBar = document.getElementById("seek-bar");
+
+seekBar.addEventListener("click", function(event) {
+    var rect = seekBar.getBoundingClientRect();
+    var offsetX = event.clientX - rect.left;
+    var percentage = offsetX / seekBar.clientWidth;
+    currentAudio.currentTime = percentage * currentAudio.duration;
+});
+
+const noteTextarea = document.getElementById('note-content');
+const saveButton = document.getElementById('save-button');
+
+// Event listener for save button
+saveButton.addEventListener('click', function() {
+    const noteContent = noteTextarea.value.trim();
+    if (noteContent) {
+        // Save note to localStorage
+        localStorage.setItem('savedNote', noteContent);
+        alert('Note saved successfully!');
+    } else {
+        alert('Please enter a note before saving.');
+    }
+});
+
+
+</script>
+
+
+</html>
